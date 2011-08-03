@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  bus_id: MyString
+  route_id: MyString
+  start_time: MyString
+  end_time: MyString
+  secs_late: MyString
+
+two:
+  bus_id: MyString
+  route_id: MyString
+  start_time: MyString
+  end_time: MyString
+  secs_late: MyString

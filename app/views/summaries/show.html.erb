@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Bus:</b>
+  <%= @summary.bus_id %>
+</p>
+
+<p>
+  <b>Route:</b>
+  <%= @summary.route_id %>
+</p>
+
+<p>
+  <b>Start time:</b>
+  <%= @summary.start_time %>
+</p>
+
+<p>
+  <b>End time:</b>
+  <%= @summary.end_time %>
+</p>
+
+<p>
+  <b>Secs late:</b>
+  <%= @summary.secs_late %>
+</p>
+
+
+<%= link_to 'Edit', edit_summary_path(@summary) %> |
+<%= link_to 'Back', summaries_path %>

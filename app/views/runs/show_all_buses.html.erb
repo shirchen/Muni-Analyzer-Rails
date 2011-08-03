@@ -1,0 +1,12 @@
+<h1>Listing all bus ids</h1>
+
+
+<% @bus_ids.each do | bus_id | %>
+  <tr>
+    <td><%= bus_id %></td>
+	<%= link_to 'Map entire route', :action => "display", :id => bus_id %> 
+	<%= link_to 'Show arrival summary', :action => "show_bus_id", :controller => "summaries", :id => bus_id %> 
+  </tr>
+<br/>
+<% end %>
+</table>

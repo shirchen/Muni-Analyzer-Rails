@@ -1,0 +1,37 @@
+<%= form_for(@summary) do |f| %>
+  <% if @summary.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@summary.errors.count, "error") %> prohibited this summary from being saved:</h2>
+
+      <ul>
+      <% @summary.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :bus_id %><br />
+    <%= f.text_field :bus_id %>
+  </div>
+  <div class="field">
+    <%= f.label :route_id %><br />
+    <%= f.text_field :route_id %>
+  </div>
+  <div class="field">
+    <%= f.label :start_time %><br />
+    <%= f.text_field :start_time %>
+  </div>
+  <div class="field">
+    <%= f.label :end_time %><br />
+    <%= f.text_field :end_time %>
+  </div>
+  <div class="field">
+    <%= f.label :secs_late %><br />
+    <%= f.text_field :secs_late %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

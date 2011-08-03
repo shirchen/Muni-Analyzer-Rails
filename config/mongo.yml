@@ -1,0 +1,22 @@
+defaults: &defaults
+  host: 127.0.0.1
+  port: 27017
+
+development:
+  <<: *defaults
+  database: muni_analyzer_rails_development
+
+test:
+  <<: *defaults
+  database: muni_analyzer_rails_test
+
+# set these environment variables on your prod server
+production:
+  <<: *defaults
+  database: muni_analyzer_rails
+  username: <%= ENV['MONGO_USERNAME'] %>
+  password: <%= ENV['MONGO_PASSWORD'] %>
+
+muni_dev:
+  <<: *defaults
+  database: muni

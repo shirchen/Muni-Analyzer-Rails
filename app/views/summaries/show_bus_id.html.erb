@@ -1,0 +1,31 @@
+<h1>Listing summaries</h1>
+
+<table>
+  <tr>
+    <th>Bus</th>
+    <th>Route</th>
+    <th>Start time</th>
+    <th>End time</th>
+    <th>Secs late</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @summaries.each do |summary| %>
+  <tr>
+    <td><%= summary.bus_id %> | </td>
+    <td><%= summary.route_id %> | </td>
+    <td><%= Time.at(summary.start_time.to_i).localtime("-07:00").asctime %> |</td>
+    <td><%= Time.at(summary.end_time.to_i).localtime("-07:00").asctime %> |</td>
+    <td><%= summary.secs_late %></td>
+    <td><%= link_to 'Show', summary %></td>
+    <td><%= link_to 'Edit', edit_summary_path(summary) %></td>
+    <td><%= link_to 'Destroy', summary, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Summary', new_summary_path %>
