@@ -1,31 +1,53 @@
-<h1>Listing summaries</h1>
+<h1>Listing summaries for bus id: <%= @bus_id %></h1>
 
 <table>
   <tr>
-    <th>Bus</th>
-    <th>Route</th>
+    <th>Trip</th>
     <th>Start time</th>
+    <th>Scheduled Start time</th>
+    <th>Leaving Late/Early</th>
     <th>End time</th>
-    <th>Secs late</th>
-    <th></th>
+    <th>Scheduled End time</th>
+    <th>Arrival Late/Early</th>
+    <th>On-Time</th>
     <th></th>
     <th></th>
   </tr>
 
 <% @summaries.each do |summary| %>
   <tr>
-    <td><%= summary.bus_id %> | </td>
     <td><%= summary.route_id %> | </td>
-    <td><%= Time.at(summary.start_time.to_i).localtime("-07:00").asctime %> |</td>
-    <td><%= Time.at(summary.end_time.to_i).localtime("-07:00").asctime %> |</td>
-    <td><%= summary.secs_late %></td>
-    <td><%= link_to 'Show', summary %></td>
-    <td><%= link_to 'Edit', edit_summary_path(summary) %></td>
-    <td><%= link_to 'Destroy', summary, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= Time.at(summary.start_time.to_i).localtime("-07:00").asctime %> | </td>
+    <td><%= Time.at(summary.schd_start.to_i).localtime("-07:00").asctime %> | </td>
+    <td> 
+	<% if summary.leaving_late.to_i > 0 %>
+		<%= distance_of_time_in_words(summary.schd_start.to_i, summary.schd_start.to_i+summary.leaving_late.to_i,include_seconds=true) %> late 
+	<% else %>
+		<%= distance_of_time_in_words(summary.schd_start.to_i, summary.schd_start.to_i+summary.leaving_late.to_i,include_seconds=true) %> early 
+	<% end %>
+    </td>  
+
+
+    <td>| <%= Time.at(summary.end_time.to_i).localtime("-07:00").asctime %> | </td>
+    <td><%= Time.at(summary.schd_end.to_i).localtime("-07:00").asctime %> | </td>
+
+
+    <td> 
+	<% if summary.secs_late.to_i > 0 %>
+		<%= distance_of_time_in_words(summary.end_time.to_i, summary.end_time.to_i+summary.secs_late.to_i,include_seconds=true) %> late 
+	<% else %>
+		<%= distance_of_time_in_words(summary.end_time.to_i, summary.end_time.to_i+summary.secs_late.to_i,include_seconds=true) %> early
+	<% end %>
+    </td>
+    <td>
+	<% if -120 < summary.secs_late.to_i and summary.secs_late.to_i < 300 %>
+	<img src="/images/checkbox.gif"/>	
+	<% else %>
+	<img src="/images/red-x.gif"/>	
+	<% end %>
+   </td>
   </tr>
 <% end %>
 </table>
 
 <br />
-
-<%= link_to 'New Summary', new_summary_path %>

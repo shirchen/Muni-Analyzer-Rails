@@ -8,5 +8,8 @@ class Summary
   key :start_time, String
   key :end_time, String
   key :secs_late, String
+  key :schd_start, String
+  key :schd_end, String
+  key :leaving_late, String
 
 end

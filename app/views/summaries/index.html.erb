@@ -3,11 +3,14 @@
 <table>
   <tr>
     <th>Bus</th>
-    <th>Route</th>
+    <th>Trip</th>
     <th>Start time</th>
+    <th>Scheduled Start time</th>
     <th>End time</th>
-    <th>Late/Early</th>
-    <th></th>
+    <th>Scheduled End time</th>
+    <th>Leaving Late/Early</th>
+    <th>Arrival Late/Early</th>
+    <th>On-Time</th>
     <th></th>
     <th></th>
   </tr>
@@ -17,18 +20,34 @@
     <td><%= link_to summary.bus_id, :action => "show_bus_id", :id => summary.bus_id %> | </td>
     <td><%= summary.route_id %> | </td>
     <td><%= Time.at(summary.start_time.to_i).localtime("-07:00").asctime %> | </td>
+    <td><%= Time.at(summary.schd_start.to_i).localtime("-07:00").asctime %> | </td>
     <td><%= Time.at(summary.end_time.to_i).localtime("-07:00").asctime %> | </td>
+    <td><%= Time.at(summary.schd_end.to_i).localtime("-07:00").asctime %> | </td>
+
+    <td> 
+	<% if summary.leaving_late.to_i > 0 %>
+		<%= distance_of_time_in_words(summary.schd_start.to_i, summary.schd_start.to_i+summary.leaving_late.to_i,include_seconds=true) %> late 
+	<% else %>
+		<%= distance_of_time_in_words(summary.schd_start.to_i, summary.schd_start.to_i+summary.leaving_late.to_i,include_seconds=true) %> early 
+	<% end %>
+    </td>  
+
+
     <td> 
 	<% if summary.secs_late.to_i > 0 %>
 		<%= distance_of_time_in_words(summary.end_time.to_i, summary.end_time.to_i+summary.secs_late.to_i,include_seconds=true) %> late 
 	<% else %>
 		<%= distance_of_time_in_words(summary.end_time.to_i, summary.end_time.to_i+summary.secs_late.to_i,include_seconds=true) %> early
-
 	<% end %>
-
-    <td><%= link_to 'Show', summary %></td>
-    <td><%= link_to 'Edit', edit_summary_path(summary) %></td>
-    <td><%= link_to 'Destroy', summary, :confirm => 'Are you sure?', :method => :delete %></td>
+    </td>
+    <td>
+	<% if -120 < summary.secs_late.to_i and summary.secs_late.to_i < 300 %>
+	<img src="/images/checkbox.gif"/>	
+	<% else %>
+	<img src="/images/red-x.gif"/>	
+	<% end %>
+   </td>
+    <td><%= link_to 'Map Trip', :action =>'display_bus_route', :controller =>'runs', :bus_id => summary.bus_id, :start_time => summary.start_time.to_i, :end_time => summary.end_time.to_i %></td>
   </tr>
 <% end %>
 </table>

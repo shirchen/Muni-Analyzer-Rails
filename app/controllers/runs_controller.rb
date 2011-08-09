@@ -34,7 +34,16 @@ class RunsController < ApplicationController
       format.html #show_all_buses.html.erb
     end
   end 
-
+  
+  def display_bus_route
+    @bus_id = params[:bus_id]
+    @start_time = Float(params[:start_time])
+    @end_time = Float(params[:end_time])
+    @entries = Location.where(:bus_id=>@bus_id,:cur_time=>{:$gt=>@start_time,:$lt=>@end_time}).all
+    respond_to do |format|
+      format.html
+    end
+  end
 
   # GET /runs/1
   # GET /runs/1.xml

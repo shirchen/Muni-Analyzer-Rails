@@ -22,6 +22,7 @@ class SummariesController < ApplicationController
   end
 
   def show_bus_id
+    @bus_id = params[:id]
     @summaries = Summary.sort("start_time").find_all_by_bus_id(params[:id])
 
     respond_to do |format|
@@ -29,7 +30,14 @@ class SummariesController < ApplicationController
       format.xml  { render :xml => @summaries }
     end
   end
-
+  def chart
+    @summaries = Summary.sort("start_time").all
+    respond_to do |format|
+      format.html # chart.html.erb
+      format.xml  { render :xml => @summaries }
+    end
+ 
+  end
 
   # GET /summaries/new
   # GET /summaries/new.xml

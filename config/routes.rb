@@ -8,6 +8,8 @@ MuniAnalyzerRails::Application.routes.draw do
   match 'bus_runs/:id' => 'runs#display'
   match 'all_bus_ids/' => 'runs#show_all_buses'
   match 'summarize/:id' => 'summaries#show_bus_id'
+  match 'chart' => 'summaries#chart'
+  match '/display_bus_route/:bus_id/:start_time/:end_time' => 'runs#display_bus_route'
 
   #get "home/index"
 
