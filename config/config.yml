@@ -1,0 +1,4 @@
+development:
+  adapter: MongoDB
+  host: localhost
+  database: muni
