@@ -18,7 +18,7 @@
 <% @summaries.each do |summary| %>
   <tr>
     <td><%= link_to summary.bus_id, :action => "show_bus_id", :id => summary.bus_id %> | </td>
-    <td><%= summary.route_id %> | </td>
+    <td><%= summary.trip_id %> | </td>
     <td><%= Time.at(summary.start_time.to_i).localtime("-07:00").asctime %> | </td>
     <td><%= Time.at(summary.schd_start.to_i).localtime("-07:00").asctime %> | </td>
     <td><%= Time.at(summary.end_time.to_i).localtime("-07:00").asctime %> | </td>

@@ -26,6 +26,22 @@ class RunsController < ApplicationController
       format.html # display.html.erb
     end
   end
+  def display_marker
+     #@db = Mongo::Connection.new("localhost", 27017).db("muni")
+     #@coll = @db.collection("location")
+     #@bus_id = params[:id]
+     #@entry_count = @coll.find({"bus_id" => @bus_id}).count()
+     #@entries = @coll.find({"bus_id" => @bus_id}).limit(10)
+   #@run 
+    #@entries = Location.all
+    @bus_id = params[:id]
+    @entries = Location.fields(:loc,:cur_time).find_all_by_bus_id(@bus_id)
+    respond_to do |format|
+      format.html # display.html.erb
+    end
+  end
+
+
 
   def show_all_buses
     @bus_ids = MongoMapper.database.collection("location").distinct("bus_id") 
@@ -44,6 +60,17 @@ class RunsController < ApplicationController
       format.html
     end
   end
+
+  def display_marker_bus_route
+    @bus_id = params[:bus_id]
+    @start_time = Float(params[:start_time])
+    @end_time = Float(params[:end_time])
+    @entries = Location.where(:bus_id=>@bus_id,:cur_time=>{:$gt=>@start_time,:$lt=>@end_time}).all
+    respond_to do |format|
+      format.html
+    end
+  end
+
 
   # GET /runs/1
   # GET /runs/1.xml

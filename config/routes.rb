@@ -14,7 +14,7 @@ MuniAnalyzerRails::Application.routes.draw do
   match '/display_bus_route/:bus_id/:start_time/:end_time' => 'runs#display_bus_route'
   match 'display_marker/:id' => 'runs#display_marker'
   match 'display_marker_bus_route/:bus_id/:start_time/:end_time' => 'runs#display_marker_bus_route'
-  match 'schedule_compare' => 'summaries#schedule_compare'
+  match '/schedule_compare/:start_time/:end_time' => 'summaries#schedule_compare'
 
   #get "home/index"
 
