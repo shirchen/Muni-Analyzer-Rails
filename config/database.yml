@@ -4,7 +4,7 @@
 #  password: sheandhim 
 #  database: muni
 
-development:
+production:
   adapter: postgresql
   database: gtfs_muni
   username: ubuntu

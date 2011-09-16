@@ -1,0 +1,67 @@
+<h1>Full schedule</h1>
+
+<table>
+  <tr>
+    <th>Trip</th>
+    <th>Scheduled start time</th>
+    <th>Scheduled end time</th>
+    <th>Actual start time </th>
+    <th>Actual end time</th>
+    <th>Lateness</th>
+    <th>Completed</th>
+  </tr>
+
+<% @trips_arr.each do |key, value| %>
+<% if not value[1].nil? %><!-- only displaying full runs with this if statement-->
+  <tr>
+   <td><%= key %> | </td>
+    <td><%= Time.at(value[0]).asctime %> | </td>
+	
+
+<% if not value[1].nil? %>	
+    <td><%= Time.at(value[1]).asctime %> | </td>
+<% else %>
+	<td><%= value[1] %></td>
+<% end %>
+  <td>
+	<% if @all_runs[key].nil? %>
+		Missed or uncaptured run
+	<% else %>
+		<%= Time.at(@all_runs[key]["start_time"].to_i).localtime("-07:00").asctime %>	
+	<% end %>
+   |</td>
+   <td>
+	<% if @all_runs[key].nil? %>
+		Missed or uncaptured run
+	<% else %>
+		<%= Time.at(@all_runs[key]["end_time"].to_i).localtime("-07:00").asctime %>	
+	<% end %>
+   </td>
+   <td>|
+	<% if @all_runs[key].nil? %>
+		Missed or uncaptured run
+	<% else %>
+        	<% if @all_runs[key]["secs_late"].to_i > 0 %>
+               	 <%= distance_of_time_in_words(0, @all_runs[key]["secs_late"].to_i, include_seconds=true) %> late
+        	<% else %>
+               	 <%= distance_of_time_in_words(0, @all_runs[key]["secs_late"].to_i, include_seconds=true) %> early
+        	<% end %>
+	<% end %>
+
+	
+   </td>
+    <td>|
+   <% if not @all_runs[key].nil? %>
+	<img src="/images/checkbox.gif"/>
+   <% else %>
+	<img src="/images/red-x.gif"/>
+   <% end %>
+    |</td>
+ 
+</tr>
+<% end %>
+<% end %>
+</table>
+
+<br />
+
